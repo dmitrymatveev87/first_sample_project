@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() => runApp(const SignUpApp());
 
@@ -22,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.green[200],
       body: Center(
         child: SizedBox(
           width: 400,
@@ -42,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Welcome!', style: Theme.of(context).textTheme.headline2),
+        child: Text('Добро пожаловать!', style: Theme.of(context).textTheme.headline2),
       ),
     );
   }
@@ -54,18 +55,18 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  final _firstNameTextController = TextEditingController();
-  final _lastNameTextController = TextEditingController();
-  final _usernameTextController = TextEditingController();
+  final _NameController = TextEditingController();
+  final _PhoneController = TextEditingController();
+  final _PasswordController = TextEditingController();
 
   double _formProgress = 0;
 
   void _updateFormProgress() {
     var progress = 0.0;
     final controllers = [
-      _firstNameTextController,
-      _lastNameTextController,
-      _usernameTextController
+      _NameController,
+      _PhoneController,
+      _PasswordController
     ];
 
     for (final controller in controllers) {
@@ -91,26 +92,27 @@ class _SignUpFormState extends State<SignUpForm> {
         mainAxisSize: MainAxisSize.min,
         children: [
           AnimatedProgressIndicator(value: _formProgress),
-          Text('Sign up', style: Theme.of(context).textTheme.headline4),
+          Text('Регистарция', style: Theme.of(context).textTheme.headline4),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
-              controller: _firstNameTextController,
-              decoration: const InputDecoration(hintText: 'First name'),
+              controller: _NameController,
+              decoration: const InputDecoration(hintText: 'Имя и Фамилия'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
-              controller: _lastNameTextController,
-              decoration: const InputDecoration(hintText: 'Last name'),
+              keyboardType: TextInputType.phone,
+              controller: _PhoneController,
+              decoration: const InputDecoration(hintText: 'Телефон'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
-              controller: _usernameTextController,
-              decoration: const InputDecoration(hintText: 'Username'),
+              controller: _PasswordController,
+              decoration: const InputDecoration(hintText: 'Пароль'),
             ),
           ),
           TextButton(
@@ -123,7 +125,7 @@ class _SignUpFormState extends State<SignUpForm> {
               }),
             ),
             onPressed: _formProgress == 1 ? _showWelcomeScreen : null,
-            child: const Text('Sign up'),
+            child: const Text('Войти'),
           ),
         ],
       ),
